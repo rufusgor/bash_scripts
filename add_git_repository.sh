@@ -1,7 +1,12 @@
 #!/bin/bash
 #
-REPONAME=$1
 
+if [ $# -eq 0 ]; then
+        echo "usage : $0 name_of_repository";
+    else
+        echo "repository name: $1"
+
+REPONAME=$1
 
 #создание bare репозитория
 mkdir /git/$REPONAME.git
@@ -54,3 +59,5 @@ chmod -R 777 /var/www/$REPONAME
 chown -R www-data:www-data /var/www/$REPONAME
 chmod -R 777 /git/$REPONAME.git
 chown -R www-data:www-data /git/$REPONAME.git
+
+fi
