@@ -1,10 +1,10 @@
 #!/bin/bash
 # Скрипт для создания bare и обычного git репозитория
 ID=`id -un`
-HOST=`hostname`
+HOST=`hostname -d`
 
 if [ $# -eq 0 ]; then
-        echo "usage : $0 name_of_repository";
+        echo "usage : $0 name_of_repository"
     else
         echo "repository name: $1"
 
@@ -17,13 +17,12 @@ git --bare init
 
 # start - добавляем хуки # > hooks/post-update
 echo "
-echo '**** Внесение изменения в $REPONAME [$REPONAME post-update hook]'
+#!/bin/bash
+echo '**** Внесение изменений в $REPONAME [$REPONAME post-update hook]'
 echo
-
 cd /var/www/$REPONAME || exit
 unset GIT_DIR
 git pull $REPONAME master
-
 exec git-update-server-info" > hooks/post-update
 # end ###########
 
@@ -37,11 +36,8 @@ git init
 # start - добавляем хуки # > .git/hooks/post-commit
 echo "
 #!/bin/sh
-
+echo '**** Внесение изменений в $REPONAME.GIT [$REPONAME post-commit hook]'
 echo
-echo '**** Внесение изменения в $REPONAME.GIT [$REPONAME's post-commit hook]'
-echo
-
 git push $REPONAME" > .git/hooks/post-commit
 # end ###################
 
@@ -64,5 +60,5 @@ chown -R www-data:www-data /var/www/$REPONAME
 chmod -R 777 /git/$REPONAME.git
 chown -R www-data:www-data /git/$REPONAME.git
 
-echo "репозиторий доступен по пути: $ID@$HOST:/git/$REPONAME.git"
+echo "репозиторий доступен по: git clone $ID@$HOST:/git/$REPONAME.git"
 fi
