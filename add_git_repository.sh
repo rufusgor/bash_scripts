@@ -22,6 +22,7 @@ echo '**** Внесение изменений в $REPONAME [$REPONAME post-upda
 echo
 cd /var/www/$REPONAME || exit
 unset GIT_DIR
+git stash
 git pull $REPONAME master
 exec git-update-server-info" > hooks/post-update
 # end ###########
