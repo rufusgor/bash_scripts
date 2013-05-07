@@ -23,7 +23,7 @@ echo
 cd /var/www/$REPONAME || exit
 unset GIT_DIR
 git pull $REPONAME master
-exec git-update-server-info" > hooks/post-update
+exec git-update-server-info"
 # end ###########
 
 chmod +x hooks/post-update
@@ -39,7 +39,7 @@ echo "
 #!/bin/sh
 echo '**** Внесение изменений в $REPONAME.GIT [$REPONAME post-commit hook]'
 echo
-git push $REPONAME" > .git/hooks/post-commit
+git push $REPONAME"
 # end ###################
 
 chmod +x .git/hooks/post-commit
