@@ -32,6 +32,7 @@ chmod +x hooks/post-update
 mkdir /var/www/$REPONAME
 cd /var/www/$REPONAME
 git init
+git config receive.denyCurrentBranch ignore
 
 # start - добавляем хуки # > .git/hooks/post-commit
 echo "
